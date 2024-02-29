@@ -51,12 +51,13 @@ public class NotepadUser {
     }
 
 
-    public NotepadUser(String userName, String password) {
+    public NotepadUser(String userName, String password,String email) {
         this.userName = userName;
         this.password = password;
         Timestamp currentTime = Timestamp.from(Instant.now());
         this.userCreateTime = currentTime;
         this.userUpdateTime = currentTime;
+        this.email=email;
     }
 
 

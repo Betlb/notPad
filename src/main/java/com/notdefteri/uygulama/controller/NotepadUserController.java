@@ -2,22 +2,24 @@ package com.notdefteri.uygulama.controller;
 
 import com.notdefteri.uygulama.model.Note;
 import com.notdefteri.uygulama.model.NotepadUser;
+import com.notdefteri.uygulama.modelView.NotepadUserView;
 import com.notdefteri.uygulama.service.NoteService;
 import com.notdefteri.uygulama.service.NotepadUserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
-@RequestMapping("notepadUser")
+@RequestMapping("/notepadUser")
 public class NotepadUserController {
 
     final NotepadUserService notepadUserService;
 
 
 
-    public NotepadUserController(NotepadUserService notepadUserService, NoteService noteService) {
+    public NotepadUserController(NotepadUserService notepadUserService) {
         this.notepadUserService = notepadUserService;
     }
 
@@ -27,19 +29,20 @@ public class NotepadUserController {
     public ResponseEntity<NotepadUser> login(@RequestParam String user_name, @RequestParam String pass) {
         return ResponseEntity.ok(notepadUserService.login(user_name,pass));
     }*/
-    @GetMapping("/loginNotepad")
-    public NotepadUser login(@RequestParam String user_name, @RequestParam String pass) {
-        return notepadUserService.login(user_name,pass);
+    @PostMapping("/loginNotepad")
+    public NotepadUserView login(@RequestBody NotepadUser user) {
+        return notepadUserService.login(user);
     }
 
     @GetMapping("/loginWithId")
-    public NotepadUser loginWithId(@RequestParam Long id){
+    public NotepadUserView loginWithId(@RequestParam Long id){
+
         return notepadUserService.loginWithId(id);
     }
 
     @PostMapping("/addNewUser")
-    public NotepadUser addNewUser(@RequestBody NotepadUser notepadUser) {
-        return notepadUserService.addNewUser(notepadUser);
+    public NotepadUserView addNewUser(@RequestBody NotepadUser notepadUser) {
+         return notepadUserService.addNewUser(notepadUser);
     }
 
    /* @GetMapping("/getUsers")

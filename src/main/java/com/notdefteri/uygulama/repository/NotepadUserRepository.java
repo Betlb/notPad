@@ -10,4 +10,8 @@ import java.util.List;
 public interface NotepadUserRepository extends JpaRepository<NotepadUser, Long> {
     List<NotepadUser> findNotepadUserByUserNameAndPassword(String user_name, String password);
 
+    List<NotepadUser> findNotepadUserByUserNameAndEmail(String userName,String email);
+
+
+
 }

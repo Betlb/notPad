@@ -15,29 +15,57 @@
     border-radius: 50px;
 }
 
-.navbar {
-    list-style-type: none; /* Remove bullets */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
+.centerCls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.navbar li {
-    display: inline-block; /* Display items inline */
-    margin-right: 25px; /* Adjust spacing between items */
-    cursor: pointer; /* Change cursor to pointer on hover */
-}
 
-.navbar li:last-child {
-    margin-right: 0; /* Remove margin for the last item */
+
+ ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
 }
   
+ li {
+    display: inline;
+    float: left;
+    border-right: 1px solid #bbb;
+}
+
+
+  
+ li a {
+    display: block;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+ 
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+li:last-child {
+    border-right: none;
+  }
+  
+.active {
+    background-color: #04AA6D;
+}
+
+
 
 .notes-cls{
+    background-color: rgb(164, 108, 108);
     display: flex;
-    display: run-in;
-    float: left;
-    width: 60%;
-    padding: 15px;
+    float: right;
+    width: 50%;
+    padding: 50%;
     text-align: center;
 
 }
@@ -70,8 +98,8 @@
         .login-cls,
         .register-cls{
             width: 100%;
-        }
         
+        }
     }
 
    *{
