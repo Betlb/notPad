@@ -12,11 +12,12 @@
 </head>
 <body onload="onLoad()">
     <header class="header">
-        <h2>Categories</h2>
+        <h2>Notepad</h2>
       
     </header>
 
         <ul>
+            <li id="categ">Categories</li>
             <li> <a href="#allNotes">All Notes</a></li>
             <li> <a href="#passwords">Passwords</a></li>
             <li> <a href="#shoppingList">Shopping List</a></li>
@@ -25,14 +26,18 @@
             <li> <a href="#Other">Other</a></li>
             <li style="float:right"><a class="active" > <h5 id="userNameUserLastName"></h5></a></li>
         </ul>
-        
+
         <div class="notes-cls" id="notes-container">
 
 
         </div>
-    <aside>
-        <button type="button" onclick="addNote()" class="btn btn-lg btn-primary ">Add note</button>
-    </aside>
+    <div>
+        <div class="action-cls">
+            <button type="button" onclick="addNote()" class="btn btn-lg btn-primary ">Add note</button><br>
+            <button type="button" onclick="deleteNote()" class="btn btn-lg btn-primary ">Delete note</button><br>
+            <button type="button" onclick="editNote()" class="btn btn-lg btn-primary ">Edit note</button><br>
+        </div>
+    </div>
     
 </body>
 </html>
