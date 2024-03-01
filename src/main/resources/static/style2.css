@@ -71,7 +71,10 @@ li:last-child {
     background-color: rgb(164, 108, 108);
     display: flex;
     float: left;
-    padding: 44%;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 70vh;
+    text-size-adjust: 100px;
 
 }
 

@@ -8,17 +8,16 @@ import java.util.List;
 
 public class CategoryView {
     private Long categoryId;
-    private List<Note> notes = new ArrayList<>();
     private Timestamp categoryCreateTime;
     private Timestamp categoryUpdateTime;
     private String category_name;
 
-    public List<Note> getNotes() {
-        return notes;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategory_name() {

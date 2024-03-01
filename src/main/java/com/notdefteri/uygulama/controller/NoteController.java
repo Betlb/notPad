@@ -1,8 +1,11 @@
 package com.notdefteri.uygulama.controller;
 
 import com.notdefteri.uygulama.model.Note;
+import com.notdefteri.uygulama.modelView.NoteView;
 import com.notdefteri.uygulama.service.NoteService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -35,7 +38,10 @@ public class NoteController {
         return noteService.deleteNote(id);
     }
 
-
+    @GetMapping("getUserNotesWithCategories")
+    public List<NoteView> getNotesByCategoryAndUser(@RequestParam Long userId,@RequestParam Long categoryId){
+        return noteService.getNotesByCategoryAndUser(userId,categoryId);
+    }
 
 
 

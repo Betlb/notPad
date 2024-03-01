@@ -7,19 +7,35 @@ import java.sql.Timestamp;
 
 public class NoteView {
     private Long noteId;
-    private NotepadUser notepad_user;
-    private Category category;
+    private Long notepadUserId;
+    private Long categoryId;
     private Timestamp noteCreateTime;
     private Timestamp noteUpdateTime;
     private String title;
     private String content;
 
-    public Category getCategory() {
-        return category;
+    public Long getNoteId() {
+        return noteId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setNoteId(Long noteId) {
+        this.noteId = noteId;
+    }
+
+    public Long getNotepadUserId() {
+        return notepadUserId;
+    }
+
+    public void setNotepadUserId(Long notepadUserId) {
+        this.notepadUserId = notepadUserId;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getTitle() {

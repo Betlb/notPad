@@ -1,4 +1,5 @@
-let currentUser = null;
+let currentUser = JSON.parse(localStorage.getItem("USER"));
+//document.addEventListener("DOMContentLoaded", onLoad);
 
 //currentUserı tutar.
 function onLoad() {
@@ -6,35 +7,71 @@ function onLoad() {
     document.getElementById('userNameUserLastName').innerHTML = currentUser.userName;
 }
 
-document.querySelector('a[href="#allNotes"]').addEventListener("click", function(event){
-    event.preventDefault();//prevent the default link behavior events are objects that represent these occurrences
-    allNotes();
-})
+document.getElementById("allNotesLink").addEventListener("click",allNotes);
+document.getElementById("passwordsLink").addEventListener("click",getPasswords());
 
 async function allNotes(){
-
     try{
-    const response = await fetch('/notepadUser/getUserAllNotes') 
-    if(!response.ok){
-        throw new Error('Failed to fetch ntoes');
-    }
-    console.log(response);
-    const data = await response.json();
-    console.log(data);
-    length = data.length;
-    let temp = "";
-    temp+= "<table>";
-    for(i=0;i<length;i++){
-        temp+="<tr>";
-        temp+="<td>"+data[i]+"</td><br>";
-        temp+="</tr>";
-    }
-    temp+= "</table>";
-    document.getElementById("notes-container").innerHTML = temp;
+        const url = '/notepadUser/getUserAllNotes?id=' +currentUser.userId;
+        const response = await fetch(url,{
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        if(!response.ok){
+            throw new Error("Failed to fetch notes.");
+        }
+        console.log(response);
+        const data = await response.json();
+        let temp = getNotes(data);
+        document.getElementById("notes-container").innerHTML = temp;
+
     }
     catch(error){
         console.error(error);
     }
+   
+}
+
+function getNotes(data){
+    console.log(data);
+        let length = data.length;
+        let temp = "";
+        temp+= "<table>";
+        for(i=0;i<length;i++){
+            temp+="<tr>";
+            temp +="<td>"+ data[i].title+ "</td>";
+            temp+="<td>"+data[i].content+"</td><br>";
+            temp+="</tr>";
+        }
+        temp+= "</table>";
+        return temp;
+
+}
+
+async function getPasswords(){
+    try{
+        const url = '/category?id=' +currentUser.userId;
+        const response = await fetch(url,{
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        if(!response.ok){
+            throw new Error("Failed to fetch notes.");
+        }
+        console.log(response);
+        const data = await response.json();
+        let temp = getNotes(data);
+        document.getElementById("notes-container").innerHTML = temp;
+
+    }
+    catch(error){
+        console.error(error);
+    }
+   
 }
 
 function addNote(){}

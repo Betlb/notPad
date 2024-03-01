@@ -21,13 +21,13 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public List<Note> getAllNotesOfCategory(Long id) {
+    /*public List<Note> getAllNotesOfCategory(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Category is not found!!"));
         List<Note> notes=category.getNotes();
         if(notes!=null)
             return notes;
         else return new ArrayList<>();
-    }
+    }*/
 
     public Category addCategory(String categoryName) {
         return categoryRepository.save(new Category(categoryName));

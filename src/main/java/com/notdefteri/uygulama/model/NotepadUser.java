@@ -39,8 +39,6 @@ public class NotepadUser {
 
     //private String secureId;
 
-    @OneToMany(mappedBy = "notepad_user", fetch = FetchType.LAZY )
-    private List<Note> notes = new ArrayList<>();
 
 
 
@@ -69,13 +67,7 @@ public class NotepadUser {
         this.userId = userId;
     }
 
-    public List<Note> getNotes() {
-        return notes;
-    }
 
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
-    }
 
     public Timestamp getUserCreateTime() {
         return userCreateTime;

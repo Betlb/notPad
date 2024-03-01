@@ -21,15 +21,13 @@ public class Note {
     private Long noteId;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore  // Ignore serialization of the user property to break the recursion cok iyi
-    @JoinColumn(name = "notepad_user_id")
-    private NotepadUser notepad_user;
+    // Ignore serialization of the user property to break the recursion cok iyi
+    @Column(name = "notepad_user_id")
+    private Long notepadUserId;
 //Onemli
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JoinColumn(name = "category_id")
-    private Category category;
+
+    @Column(name = "category_id")
+    private Long categoryId;
 //Onemli
     @Column(name = "note_createtime", nullable = false)
     private Timestamp noteCreateTime;
@@ -68,20 +66,36 @@ public class Note {
         this.noteId = noteId;
     }
 
-    public NotepadUser getNotepad_user() {
-        return notepad_user;
+    public Long getNotepadUserId() {
+        return notepadUserId;
     }
 
-    public void setNotepad_user(NotepadUser notepad_user) {
-        this.notepad_user = notepad_user;
+    public void setNotepadUserId(Long notepadUserId) {
+        this.notepadUserId = notepadUserId;
     }
 
-    public Category getCategory() {
-        return category;
+    public Long getUserId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setUserId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Timestamp getNoteCreateTime() {
+        return noteCreateTime;
+    }
+
+    public void setNoteCreateTime(Timestamp noteCreateTime) {
+        this.noteCreateTime = noteCreateTime;
+    }
+
+    public Timestamp getNoteUpdateTime() {
+        return noteUpdateTime;
+    }
+
+    public void setNoteUpdateTime(Timestamp noteUpdateTime) {
+        this.noteUpdateTime = noteUpdateTime;
     }
 
     public Timestamp getNoteIdCreateTime() {

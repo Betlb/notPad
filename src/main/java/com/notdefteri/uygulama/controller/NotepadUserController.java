@@ -50,11 +50,13 @@ public class NotepadUserController {
         return notepadUserService.getUsers().toString();
     }*/
 
-    @GetMapping("/getUserAllNotes")
+    /*@GetMapping("/getUserAllNotes")
     public List<Note> getUserAllNotes(@RequestParam Long id) throws NoSuchAlgorithmException {
         return notepadUserService.getUserAllNotes(id);
 
     }
+    saçmalamışım
+    */
 
 
 

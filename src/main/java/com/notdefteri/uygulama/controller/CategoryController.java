@@ -24,10 +24,11 @@ public class CategoryController {
     public List<Category> getAllCategories(){
         return categoryService.getAllCategories();
     }
-    @GetMapping("/getAllNotesOfCategory")
+    /*@GetMapping("/getAllNotesOfCategory")
     public List<Note> getAllNotesOfCategory(@RequestParam Long id){
         return categoryService.getAllNotesOfCategory(id);
-    }
+    }*/
+    //bunu artik note sınıfından yapıyorum.Çünkü note list tutmsk mantıksız.
     @PostMapping("/addCategory")
     public Category addCategory(@RequestParam String categoryName){
         return categoryService.addCategory(categoryName);

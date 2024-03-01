@@ -18,9 +18,9 @@ public class Category {
 
 
 //Onemli
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY )
-    private List<Note> notes = new ArrayList<>();
-
+    //@OneToMany(mappedBy = "category", fetch = FetchType.LAZY )
+    //private List<Note> notes = new ArrayList<>();
+    //mantikli mi snece (:
 //Onemli
     @Column(name = "category_createtime")
     private Timestamp categoryCreateTime;
@@ -53,13 +53,6 @@ public class Category {
         this.categoryId = categoryId;
     }
 
-    public List<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
-    }
 
     public Timestamp getCategoryCreateTime() {
         return categoryCreateTime;

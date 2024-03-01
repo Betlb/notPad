@@ -1,12 +1,10 @@
 package com.notdefteri.uygulama.service;
 
 
-import com.notdefteri.uygulama.model.Note;
 import com.notdefteri.uygulama.model.NotepadUser;
 import com.notdefteri.uygulama.modelView.NotepadUserView;
 import com.notdefteri.uygulama.repository.NotepadUserRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -61,9 +59,9 @@ public class NotepadUserService {
 
 
     @Transactional
-    public List<Note> getUserAllNotes(Long id) {
+    /*public List<Note> getUserAllNotes(Long id) {
         NotepadUser user = notepadUserRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User is not found!!"));
-       /* String  secureId = CommonUtil.generateSHA256(user.getUserId().toString());*/
+        String  secureId = CommonUtil.generateSHA256(user.getUserId().toString());
         List<Note> notes = user.getNotes();
 
 
@@ -71,7 +69,7 @@ public class NotepadUserService {
             return notes;
         else return new ArrayList<>();//for handle null notes situation
 
-    }
+    }*/
 
     //bu secure olayi icin deneddim bir şey ama önemli değil.
     public NotepadUserView loginWithId(Long id) {
@@ -79,7 +77,6 @@ public class NotepadUserService {
         NotepadUserView nuv = new NotepadUserView();
         nuv.setUserId(nu.getUserId());
         nuv.setEmail(nu.getEmail());
-        nuv.setNotes(nu.getNotes());
         nuv.setUserName(nu.getUserName());
         return nuv;
     }
