@@ -1,6 +1,7 @@
 
 // window.addEventListener("load", function(){
 
+    let previousCategoryElement = null;
     let currentUser = JSON.parse(localStorage.getItem("USER"));
 
 //document.addEventListener("DOMContentLoaded", onLoad);
@@ -21,10 +22,18 @@
         const data = await response.json();
         let temp = `<li id="categ">Categories</li>`;
         for (i = 0; i < data.length; i++) {
-            temp += `<li> <a onclick="getUserNotesWithCategories(${data[i].categoryId})">${data[i].category_name}</a></li>`;
+            temp += `<li id="${data[i].category_name}"> <a onclick="getUserNotesWithCategories(${data[i].categoryId}), activated2(this)">${data[i].category_name}</a></li>`;
         }
         temp += `<li style="float:right"><a class="active" > <h5 id="userNameUserLastName"></h5></a></li>`;
         document.getElementById("anaMenu").innerHTML = temp;
+    }
+
+    function activated2(currentcategoryElement){
+        currentcategoryElement.style.backgroundColor = "#49aa04";
+        if(previousCategoryElement!==null){
+            previousCategoryElement.style.backgroundColor = "#333";
+        }
+        previousCategoryElement = currentcategoryElement;
     }
 
 

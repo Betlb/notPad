@@ -66,6 +66,10 @@ li:last-child {
     background-color: #aa0457;
 }
 
+.active2 {
+    background-color: #49aa04;
+}
+
 
 
 .notes-cls{
@@ -75,19 +79,33 @@ li:last-child {
     padding: 20px;
     overflow-y: auto;
     max-height: 70vh;
-    text-size-adjust: 100px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-style: oblique;
+    font-weight: 900;
+    font-size:16px;
 
 }
 
 .action-cls{
-    float: left;
     padding: 20px;
     text-align: right;
+    margin-bottom: 10px;
 
 }
 
-.action-cls button{
-    margin-bottom: 10px;
+
+
+.anaMenu{
+    font-family: Rubik, sans-serif;
+    font-variant: small-caps;
+    font-size:5vw;
+}
+
+#notesAndButtons{
+    display: grid;
+    gap: 10px;
+    grid-template-columns:1300px 200px;
+    align-content: center;
 }
 
 
