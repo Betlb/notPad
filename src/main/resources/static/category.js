@@ -18,16 +18,45 @@
         if (!response.ok) {
             throw new Error("Failed to fetch getAllCategories.");
         }
-        console.log(response);
+        //console.log(response);
         const data = await response.json();
         let temp = `<li id="categ">Categories</li>`;
         for (i = 0; i < data.length; i++) {
-            temp += `<li id="${data[i].category_name}"> <a onclick="getUserNotesWithCategories(${data[i].categoryId}), activated2(this)">${data[i].category_name}</a></li>`;
+            temp += `<li id="${data[i].category_name}" style="flex-grow: 1"> <a onclick="getUserNotesWithCategories(${data[i].categoryId}), activated2(this)">${data[i].category_name}</a></li>`;
         }
-        temp += `<li style="float:right"><a class="active" > <h5 id="userNameUserLastName"></h5></a></li>`;
+        temp += `<li style="float:right"><a class="active" > <h5 id="userNameUserLastName"></h5></a></li>
+        <li style="float:right" class="dropdownCategoryAction">
+          <button class="dropbtnCategory">category-actions</button>
+          <div class="dropdown-content">
+          <a onclick="addCategoriesWindow()">Add</a>
+          <a onclick="deleteCategoriesWindow()">Delete</a>
+          </div>
+        </li>`;
+     
         document.getElementById("anaMenu").innerHTML = temp;
     }
+/*
+    async function addCategoriesWindow(){
 
+        window.open("", "", "width=300,height=200");
+
+        const url = '/category/addCategory';
+        const response = await fetch(url,{
+            method: 'GET',
+            headers: {
+                'Content-type' : 'application/json'
+            }
+
+    })
+    if(!response.ok){
+        throw new Error("Failed to fetch addCategories.")
+
+    }
+    const data = await response.json();
+    document.getElementById("anaMenu").innerHTML += `<li id="${data.category_name}"> <a onclick="getUserNotesWithCategories(${data.categoryId}), activated2(this)">${data.category_name}</a></li>`;
+  
+    }
+*/
     function activated2(currentcategoryElement){
         currentcategoryElement.style.backgroundColor = "#49aa04";
         if(previousCategoryElement!==null){
@@ -65,12 +94,15 @@
             }
             console.log(response);
             const data = await response.json();
-            let temp = getNotes(data);
-            document.getElementById("notes-container").innerHTML = temp;
-
-        } catch (error) {
-            console.error(error);
-        }
+            console.log(data);
+           {
+                let temp = getNotes(data);
+                document.getElementById("notes-container").innerHTML = temp;
+            }
+            
+            } catch (error) {
+                console.error(error);
+            }
 
     }
 
