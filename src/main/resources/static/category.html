@@ -4,33 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="category.css">
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="category.js" defer></script>
 </head>
 <body onload="onLoad()">
-    <header class="header">
-        <h2>Notepad</h2>
-      
-    </header>
+    <div class="main-grid">
 
-        <ul id="anaMenu">
-            <li style="float:right"><a class="active" > <h5 id="userNameUserLastName"></h5></a></li>
-        </ul>
-        <div id="notesAndButtons">
-            <div class="notes-cls" id="notes-container">
-
-
-            </div>
-        
-            <div class="action-cls">
-                <button type="button" onclick="addNote()" class="btn btn-lg btn-primary ">Add note</button><br>
-                <button type="button" onclick="deleteNote()" class="btn btn-lg btn-primary ">Delete note</button><br>
-                <button type="button" onclick="editNote()" class="btn btn-lg btn-primary ">Edit note</button><br>
-            </div>
+        <div class="header">
+            <div class="title"><h2>Notepad</h2></div>
         </div>
+
+
+        <div class="navBar">
+            <div class="categTitle" id="categTitle">
+                <h3>Categories</h3>
+            </div>
+            <div class="categoryMenu" id="categoryMenu">
+                <!--buraya categler gelecek veri tabanındaki categ tabledan-->
+            </div>
+           
+            <div class="dropdownCategoryAction">
+                <button class="dropbtnCategory">+</button>
+                <div class="dropdown-content">
+                     <a onclick="addCategoriesWindow()">Add</a>
+                     <a onclick="deleteCategoriesWindow()">Delete</a>
+                </div>
+            </div>
+
+            <div class="activeUser">
+                <h1 id="userNameUserLastName"></h5>
+            </div>
+
+            
+        </div>
+    
+         
+       <div class="content" id="notes">
+               <div class="notes-cls" id="notes-container">
+
+               </div>
+                        
+               <div class="sidebar">
+                  <div class="action-cls">
+                       <button type="button" onclick="addNote()">Add note</button><br>
+                       <button type="button" onclick="deleteNote()">Delete note</button><br>
+                       <button type="button" onclick="editNote()">Edit note</button><br>
+                   </div>
+               </div> 
+                        
+        </div>
+
+                 
+       
+
+    </div>
+  
     
 </body>
 

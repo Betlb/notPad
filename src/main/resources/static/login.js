@@ -14,16 +14,31 @@ async function login() {
             password: passwordInp
         }),
     });
-    const data = await response.json();
 
-    //debugger;
-    if (data === null) {
-        alert("Error password or username");
-    } else {
+    if (!response.ok) {
+        // Handle HTTP errors
+        alert("Error: " + response.statusText);
+        return;
+    }
+
+    try{
+        const data = await response.json();
+      
         console.log(data);
         localStorage.setItem("USER",JSON.stringify(data)); //daha sonra useri kullanabilmek için.
         window.open("category.html", "_self");
+
+        
     }
+    catch(error){
+        alert("Wrong username or password!");
+    }
+    
+
+
+    
+
+   
 
 }
 

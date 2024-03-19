@@ -20,20 +20,13 @@
         }
         //console.log(response);
         const data = await response.json();
-        let temp = `<li id="categ">Categories</li>`;
+        let temp = `<ul class="categoryList">`;
         for (i = 0; i < data.length; i++) {
-            temp += `<li id="${data[i].category_name}" style="flex-grow: 1"> <a onclick="getUserNotesWithCategories(${data[i].categoryId}), activated2(this)">${data[i].category_name}</a></li>`;
+            temp += `<li id="${data[i].category_name}"> <a onclick="getUserNotesWithCategories(${data[i].categoryId}), activated2(this)">${data[i].category_name}</a></li>`;
         }
-        temp += `<li style="float:right"><a class="active" > <h5 id="userNameUserLastName"></h5></a></li>
-        <li style="float:right" class="dropdownCategoryAction">
-          <button class="dropbtnCategory">category-actions</button>
-          <div class="dropdown-content">
-          <a onclick="addCategoriesWindow()">Add</a>
-          <a onclick="deleteCategoriesWindow()">Delete</a>
-          </div>
-        </li>`;
+        temp += `</ul>`;
      
-        document.getElementById("anaMenu").innerHTML = temp;
+        document.getElementById("categoryMenu").innerHTML = temp;
     }
 /*
     async function addCategoriesWindow(){

@@ -3,6 +3,7 @@ package com.notdefteri.uygulama.controller;
 import com.notdefteri.uygulama.model.Category;
 import com.notdefteri.uygulama.model.Note;
 import com.notdefteri.uygulama.service.CategoryService;
+import lombok.Getter;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
     /*@GetMapping("/getAllNotesOfCategory")
+
     public List<Note> getAllNotesOfCategory(@RequestParam Long id){
         return categoryService.getAllNotesOfCategory(id);
     }*/
@@ -37,5 +39,6 @@ public class CategoryController {
     public void deleteCategory(@RequestParam Long id){
         categoryService.deleteCategory(id);
     }
+
 
 }
