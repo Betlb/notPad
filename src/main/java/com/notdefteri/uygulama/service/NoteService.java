@@ -51,7 +51,7 @@ public class NoteService {
         List<Note> lstNote = noteRepository.findNotesByNotepadUserIdAndCategoryId(userId,categorId);
 
         if(lstNote.isEmpty())
-            return null;
+            return new ArrayList<>();
 
         List<NoteView> nvList = new ArrayList<>();
         for(int i=0;i<lstNote.size();i++){

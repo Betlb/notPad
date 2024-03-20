@@ -3,6 +3,7 @@
 
     let previousCategoryElement = null;
     let currentUser = JSON.parse(localStorage.getItem("USER"));
+    let currentcategoryId = null;
 
 //document.addEventListener("DOMContentLoaded", onLoad);
 
@@ -22,34 +23,47 @@
         const data = await response.json();
         let temp = `<ul class="categoryList">`;
         for (i = 0; i < data.length; i++) {
-            temp += `<li id="${data[i].category_name}"> <a onclick="getUserNotesWithCategories(${data[i].categoryId}), activated2(this)">${data[i].category_name}</a></li>`;
+            temp += `<li id="${data[i].category_name}"> <a onclick="getUserNotesWithCategories(${data[i].categoryId}), activated2(this),currentcategoryId=${data[i].categoryId}">${data[i].category_name}</a></li>`;
         }
         temp += `</ul>`;
      
         document.getElementById("categoryMenu").innerHTML = temp;
     }
-/*
-    async function addCategoriesWindow(){
 
-        window.open("", "", "width=300,height=200");
+    async function addNewCategory(){
+        const categoryNameInp = document.getElementById("categoryName").value;
+        const url = `/category/addCategory?categoryName=${categoryNameInp}`;
+        
 
-        const url = '/category/addCategory';
         const response = await fetch(url,{
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-type' : 'application/json'
-            }
+            },
+          
 
-    })
-    if(!response.ok){
-        throw new Error("Failed to fetch addCategories.")
+        })
+        if(!response.ok){
+            throw new Error("Failed to fetch addNewCategory.")
+
+        }
+        const data = await response.json();
+        
+        getAllCategories().then(function (){
+            document.getElementById("categoryMenu").innerHTML += `<li id="${data.category_name}"> <a onclick="getUserNotesWithCategories(${data.categoryId}), activated2(this)">${data.category_name}</a></li>`;
+        });
+
+        location.replace('/category.html');
 
     }
-    const data = await response.json();
-    document.getElementById("anaMenu").innerHTML += `<li id="${data.category_name}"> <a onclick="getUserNotesWithCategories(${data.categoryId}), activated2(this)">${data.category_name}</a></li>`;
-  
+
+    async function addCategoriesWindow(){
+
+      window.open('addCategory.html','_blank','width=300 height=200');
+
+        
     }
-*/
+
     function activated2(currentcategoryElement){
         currentcategoryElement.style.backgroundColor = "#49aa04";
         if(previousCategoryElement!==null){
@@ -85,9 +99,9 @@
             if (!response.ok) {
                 throw new Error("Failed to fetch notes.");
             }
-            console.log(response);
+            //console.log(response);
             const data = await response.json();
-            console.log(data);
+            //console.log(data);
            {
                 let temp = getNotes(data);
                 document.getElementById("notes-container").innerHTML = temp;
@@ -100,16 +114,19 @@
     }
 
     function getNotes(data) {
-        console.log(data);
+        //console.log(data);
         let length = data.length;
         let temp = "";
         temp += "<table>";
-        for (i = 0; i < length; i++) {
-            temp += "<tr>";
-            temp += "<td>" + data[i].title + "</td>";
-            temp += "<td>" + data[i].content + "</td><br>";
-            temp += "</tr>";
-        }
+       
+            for (i = 0; i < length; i++) {
+                temp += "<tr>";
+                temp += `<td><input type="checkbox" name="note" value="${data[i].noteId}"></td>`;
+                temp += "<td>" + data[i].title + "</td>";
+                temp += "<td>" + data[i].content + "</td><br>";
+                temp += "</tr>";
+            }
+    
         temp += "</table>";
         return temp;
 
@@ -119,7 +136,33 @@
     function addNote() {
     }
 
-    function deleteNote() {
+    async function deleteSelectedNotes() {
+        try{
+            const selectedNotes = Array.from(document.querySelectorAll('input[name=note]:checked')).map(checkbox => checkbox.value);
+            if(selectedNotes.length===0){
+                alert("You did not choose any notes.");
+                return;
+            }
+            for(let i = 0;i< selectedNotes.length;i++){
+                const url = `/note/deleteNote?id=${selectedNotes[i]}`;
+                const response = await fetch(url,{
+                    method: 'DELETE',
+                    headers: {
+                        'Content-type':'application/json'
+                    },
+                    body: JSON.stringify(selectedNotes[i])
+                    
+                });
+                if(!response.ok){
+                    throw new Error("Failed to delete notes.");
+                }
+            }
+             getUserNotesWithCategories(currentcategoryId);
+
+            }catch(error){
+                console.error(error);
+            
+        }
     }
 
     function editNote() {

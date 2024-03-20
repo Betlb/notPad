@@ -1,0 +1,51 @@
+.header{
+    justify-content: center;
+    align-items: center;
+    font-size:250%;
+    color: rgb(133, 71, 71);
+}
+
+.login-cls, .register-cls{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(164, 108, 108);
+    text-align: center;
+    width: 40%;
+    padding: 5%;
+    border-radius: 50px;
+}
+
+.centerCls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+  /* *{
+    border: 1px solid red;
+   }
+*/
+
+@media screen and (max-width:800px) {
+
+    .category-cls,
+    .notes-cls,
+    .action-cls{
+        width: 100%;
+    }
+   
+}
+
+@media screen and (max-width:800px) {
+    .category-cls,
+    .notes-cls,
+    .action-cls,
+    .login-cls,
+    .register-cls{
+        width: 100%;
+    
+    }
+}
