@@ -4,6 +4,7 @@
     let previousCategoryElement = null;
     let currentUser = JSON.parse(localStorage.getItem("USER"));
     let currentcategoryId = null;
+    let allCategories = [];
 
 //document.addEventListener("DOMContentLoaded", onLoad);
 
@@ -21,48 +22,66 @@
         }
         //console.log(response);
         const data = await response.json();
+        console.log(data);
+        for(i= 0;i<data.length;i++){
+            console.log(data[i])
+            categoryList(data[i]);
+        }
+        
+    }
+
+    function categoryList(category){
+        allCategories.push(category);
         let temp = `<ul class="categoryList">`;
-        for (i = 0; i < data.length; i++) {
-            temp += `<li id="${data[i].category_name}"> <a onclick="getUserNotesWithCategories(${data[i].categoryId}), activated2(this),currentcategoryId=${data[i].categoryId}">${data[i].category_name}</a></li>`;
+        for (i = 0; i < allCategories.length; i++) {
+            temp += `<li id="${allCategories[i].category_name}"> <a onclick="getUserNotesWithCategories(${allCategories[i].categoryId}), activated2(this),currentcategoryId=${allCategories[i].categoryId}">${allCategories[i].category_name}</a></li>`;
         }
         temp += `</ul>`;
      
         document.getElementById("categoryMenu").innerHTML = temp;
     }
-
+    
     async function addNewCategory(){
-        const categoryNameInp = document.getElementById("categoryName").value;
-        const url = `/category/addCategory?categoryName=${categoryNameInp}`;
         
+        const categoryName = prompt('Enter the category name: ');
+        if(categoryName!==null&&categoryName.trim()!==''){
 
-        const response = await fetch(url,{
-            method: 'POST',
-            headers: {
-                'Content-type' : 'application/json'
-            },
-          
+            const url = `/category/addCategory?categoryName=${categoryName}`;
+            
 
-        })
-        if(!response.ok){
-            throw new Error("Failed to fetch addNewCategory.")
+            const response = await fetch(url,{
+                method: 'POST',
+                headers: {
+                    'Content-type' : 'application/json'
+                },
+            })
+            if(!response.ok){
+                throw new Error("Failed to fetch addNewCategory.")
 
+            }
+            const data = await response.json();
+            categoryList(data);
         }
-        const data = await response.json();
-        
-        getAllCategories().then(function (){
+       /* else{
+            alert('You did not enter category name!');
+         }
+        */
+       /* getAllCategories().then(function (){
             document.getElementById("categoryMenu").innerHTML += `<li id="${data.category_name}"> <a onclick="getUserNotesWithCategories(${data.categoryId}), activated2(this)">${data.category_name}</a></li>`;
         });
 
-        location.replace('/category.html');
+        location.replace('/category.html');*/
 
     }
 
+    //this was opened with new window.
+    /*
     async function addCategoriesWindow(){
 
       window.open('addCategory.html','_blank','width=300 height=200');
 
         
-    }
+    }*/
 
     function activated2(currentcategoryElement){
         currentcategoryElement.style.backgroundColor = "#49aa04";
