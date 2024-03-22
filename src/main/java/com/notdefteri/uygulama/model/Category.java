@@ -25,7 +25,8 @@ public class Category {
     @Column(name = "category_createtime")
     private Timestamp categoryCreateTime;
 
-
+    @Column(name = "user_id")
+    private  Long userId;
 
     @Column(name = "category_updatetime")
     private Timestamp categoryUpdateTime;
@@ -37,11 +38,12 @@ public class Category {
     public Category() {
     }
 
-    public Category(String category_name) {
+    public Category(String category_name,Long userId) {
         this.category_name = category_name;
         Timestamp currentTime = Timestamp.from(Instant.now());
         this.categoryCreateTime = currentTime;
         this.categoryUpdateTime = currentTime;
+        this.userId=userId;
     }
 
 
@@ -72,6 +74,21 @@ public class Category {
         this.categoryUpdateTime = categoryIdUpdateTime;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Timestamp getCategoryUpdateTime() {
+        return categoryUpdateTime;
+    }
+
+    public void setCategoryUpdateTime(Timestamp categoryUpdateTime) {
+        this.categoryUpdateTime = categoryUpdateTime;
+    }
 
     public String getCategory_name() {
         return category_name;

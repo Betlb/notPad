@@ -22,9 +22,9 @@
         }
         //console.log(response);
         const data = await response.json();
-        console.log(data);
-        for(i= 0;i<data.length;i++){
-            console.log(data[i])
+        //console.log(data);
+        for(let i= 0;i<data.length;i++){
+            //console.log(data[i])
             categoryList(data[i]);
         }
         
@@ -34,7 +34,8 @@
         allCategories.push(category);
         let temp = `<ul class="categoryList">`;
         for (i = 0; i < allCategories.length; i++) {
-            temp += `<li id="${allCategories[i].category_name}"> <a onclick="getUserNotesWithCategories(${allCategories[i].categoryId}), activated2(this),currentcategoryId=${allCategories[i].categoryId}">${allCategories[i].category_name}</a></li>`;
+            console.log(this);
+            temp += `<li id="${allCategories[i].categoryId}"> <a onclick="getUserNotesWithCategories(${allCategories[i].categoryId}),activated2(this,${allCategories[i].categoryId})">${allCategories[i].category_name}</a></li>`;
         }
         temp += `</ul>`;
      
@@ -46,7 +47,7 @@
         const categoryName = prompt('Enter the category name: ');
         if(categoryName!==null&&categoryName.trim()!==''){
 
-            const url = `/category/addCategory?categoryName=${categoryName}`;
+            const url = `/category/addCategory?categoryName=${categoryName}&userId=${currentUser.userId}`;
             
 
             const response = await fetch(url,{
@@ -67,10 +68,38 @@
          }
         */
        /* getAllCategories().then(function (){
-            document.getElementById("categoryMenu").innerHTML += `<li id="${data.category_name}"> <a onclick="getUserNotesWithCategories(${data.categoryId}), activated2(this)">${data.category_name}</a></li>`;
+            document.getElementById("categoryMenu").innerHTML += `<li id="${data.categoryId}"> <a onclick="getUserNotesWithCategories(${data.categoryId}), activated2(this)">${data.category_name}</a></li>`;
         });
 
         location.replace('/category.html');*/
+
+    }
+
+    async function deleteCategory(){
+
+        try{
+            const url = `/category/deleteCategory?userId=${currentUser.userId}&categoryId=${currentcategoryId}`;
+            const response = await fetch(url,{
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body:JSON.stringify(currentcategoryId)
+            });
+
+            if(!response.ok){
+                throw new Error('Failed to delete category');
+            }
+            else{
+                allCategories=[];
+                getAllCategories();
+                getUserNotesWithCategories(currentcategoryId);
+                currentcategoryId=null;
+            }
+
+        }catch(error){
+            console.error(error);
+        }
 
     }
 
@@ -83,8 +112,10 @@
         
     }*/
 
-    function activated2(currentcategoryElement){
+    function activated2(currentcategoryElement,categId){
         currentcategoryElement.style.backgroundColor = "#49aa04";
+        currentcategoryId = categId//.value idsini getirdi categlerin!!!
+        console.log(currentcategoryId);
         if(previousCategoryElement!==null){
             previousCategoryElement.style.backgroundColor = "#333";
         }
@@ -127,7 +158,7 @@
             }
             
             } catch (error) {
-                console.error(error);
+                console.error(error + "categoryId is null");
             }
 
     }

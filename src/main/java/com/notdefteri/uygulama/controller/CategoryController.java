@@ -32,13 +32,12 @@ public class CategoryController {
     }*/
     //bunu artik note sınıfından yapıyorum.Çünkü note list tutmsk mantıksız.
     @PostMapping("/addCategory")
-    public Category addCategory(@RequestParam String categoryName){
-        return categoryService.addCategory(categoryName);
+    public Category addCategory(@RequestParam String categoryName,@RequestParam Long userId){
+        return categoryService.addCategory(categoryName,userId);
     }
     @DeleteMapping("/deleteCategory")
-    public void deleteCategory(@RequestParam Long id){
-        categoryService.deleteCategory(id);
+    public void deleteCategory(@RequestParam Long userId,@RequestParam Long categoryId) {
+        categoryService.deleteCategory(userId, categoryId);
+
     }
-
-
 }
