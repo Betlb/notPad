@@ -45,18 +45,19 @@ public class Note {
 
     //private String secureId;
 
+
     public Note() {
     }
 
-    public Note(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public Note(Long notepadUserId, Long categoryId, String title, String content) {
         Timestamp currentTime = Timestamp.from(Instant.now());
+        this.notepadUserId = notepadUserId;
+        this.categoryId = categoryId;
         this.noteCreateTime = currentTime;
         this.noteUpdateTime = currentTime;
+        this.title = title;
+        this.content = content;
     }
-
-
 
     public Long getNoteId() {
         return noteId;
@@ -86,7 +87,7 @@ public class Note {
         return noteCreateTime;
     }
 
-    public void setNoteCreateTime(Timestamp noteCreateTime) {
+    public void  setNoteCreateTime(Timestamp noteCreateTime) {
         this.noteCreateTime = noteCreateTime;
     }
 
@@ -131,7 +132,15 @@ public class Note {
     public void setContent(String content) {
         this.content = content;
     }
-/*
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+    /*
     public void setSecureId(String secureId) {
         this.secureId = secureId;
     }

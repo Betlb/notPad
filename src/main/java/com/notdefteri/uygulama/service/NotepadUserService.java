@@ -46,7 +46,7 @@ public class NotepadUserService {
             nuv.setEmail(notepadUser1.getEmail());
             return nuv;
         }
-        return null;
+        return null;//bu nullara dikkat!
 
     }
 

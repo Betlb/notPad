@@ -20,7 +20,7 @@ public class NoteService {
     }
 
     public Note createNote(Note initialNote) {
-        return noteRepository.save(initialNote);
+        return noteRepository.save(new Note(initialNote.getNotepadUserId(),initialNote.getCategoryId(),initialNote.getTitle(),initialNote.getContent()));
     }
 
     public Note editNote(Long noteId, Note newNote) {

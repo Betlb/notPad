@@ -42,12 +42,14 @@
          
        <div class="content" id="notes">
                <div class="notes-cls" id="notes-container">
-
+            
                </div>
+
+               
                         
                <div class="sidebar">
                   <div class="action-cls">
-                       <button type="button" onclick="addNote()">Add note</button><br>
+                       <button type="button" id = "openPrompt" onclick="openPrompt()">Add note</button><br>
                        <button type="button" onclick="deleteSelectedNotes()">Delete note</button><br>
                        <button type="button" onclick="editNote()">Edit note</button><br>
                    </div>
@@ -55,10 +57,52 @@
                         
         </div>
 
-                 
-       
 
     </div>
+
+    <div id="notePrompt" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <table>
+                <tr>
+                    <td>
+                        <label for="noteTitle"><b>Title</b></label><br>
+                    </td>
+                    <td>
+                        <input
+                        type="text"
+                        placeholder="Enter note title"
+                        id="noteTitle"
+                        required
+                    />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="noteContent"><b>Content</b></label><br>
+                    </td>
+                    <td>
+                        <input
+                        type="text"
+                        placeholder="Enter note content"
+                        id="noteContent"
+                        required
+                    />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" id = "submitNote" class="btn btn-lg btn-success ">Submit</button>
+                    </td>
+                </tr>
+        
+            </table>
+
+        </div>
+
+    </div> 
+
+    
   
     
 </body>

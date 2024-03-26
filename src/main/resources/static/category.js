@@ -34,13 +34,14 @@
         allCategories.push(category);
         let temp = `<ul class="categoryList">`;
         for (i = 0; i < allCategories.length; i++) {
-            console.log(this);
             temp += `<li id="${allCategories[i].categoryId}"> <a onclick="getUserNotesWithCategories(${allCategories[i].categoryId}),activated2(this,${allCategories[i].categoryId})">${allCategories[i].category_name}</a></li>`;
         }
         temp += `</ul>`;
-     
+        
         document.getElementById("categoryMenu").innerHTML = temp;
     }
+
+ 
     
     async function addNewCategory(){
         
@@ -154,11 +155,15 @@
             //console.log(data);
            {
                 let temp = getNotes(data);
-                document.getElementById("notes-container").innerHTML = temp;
+                if(temp === null){
+                    document.getElementById("notes-container").innerHTML = "";
+                }
+                else{
+                    document.getElementById("notes-container").innerHTML = temp;}
             }
             
             } catch (error) {
-                console.error(error + "categoryId is null");
+                console.error(error);//"categoryId is null"
             }
 
     }
@@ -166,7 +171,13 @@
     function getNotes(data) {
         //console.log(data);
         let length = data.length;
-        let temp = "";
+        let temp = null;
+        if(data.length === 0){
+            return temp;
+        }
+        else{
+            temp = "";
+        }
         temp += "<table>";
        
             for (i = 0; i < length; i++) {
@@ -183,8 +194,126 @@
     }
 
 
-    function addNote() {
+    /*async function addNewNote() {
+        try{
+            const newWindow = window.open('addNewNote.html','_blank','width=300 height=200');
+          
+            newWindow.onload = async function(){
+
+                const noteTitleInp = await document.getElementById("noteTitle").value;
+                const noteContentInp = await document.getElementById("noteContent").value;
+
+                const response = await fetch('/note/createNote',{
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: noteTitleInp,
+                        content: noteContentInp,
+                        notepadUserId : currentUser.userId,
+                        categoryId : currentcategoryId
+                    }),
+
+                });
+
+                if(!response.ok){
+                    alert("Error: " + response.statusText);
+                }
+            
+                const data= await response.json();
+                localStorage.setItem("Note",JSON.stringify(data));
+                window.location.href = "category.html";
+        };
+           
+        }catch(error){
+            alert("failed to fetch /note/createNote");
+        }
+
     }
+*/
+async function openPrompt(){
+    if(currentcategoryId==null){
+        alert("Please firstly choose category!");
+    }
+
+    const modal =document.getElementById("notePrompt");
+    const btn = document.getElementById("openPrompt");
+    const span = document.getElementsByClassName("close")[0];
+    const submitBtn = document.getElementById("submitNote"); 
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+    }
+
+    //title and content is filled check.
+    await new Promise((resolve,reject) => {
+        submitBtn.onclick = function(){
+            const noteTitleInp = document.getElementById("noteTitle").value;
+            const noteContentInp = document.getElementById("noteContent").value;
+
+            if(noteTitleInp.trim() === '' || noteContentInp.trim() === ''){
+                alert("Please fill in both title and content!");
+                reject();
+            }
+            else{
+                resolve();
+            }
+        };
+
+    });
+
+    const noteTitleInp = await document.getElementById("noteTitle").value;
+    const noteContentInp = await document.getElementById("noteContent").value;
+
+    submitBtn.onclick = async function() {
+         await addNewNote(noteTitleInp,noteContentInp);
+    };
+    
+        
+}
+
+async function addNewNote(title,content){
+
+    try{
+                const response = await fetch('/note/createNote',{
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        content: content,
+                        notepadUserId : currentUser.userId,
+                        categoryId : currentcategoryId
+                    }),
+
+                });
+
+                if(!response.ok){
+                    alert("Error: " + response.statusText);
+                }
+            
+                const data= await response.json();
+                
+                window.location.href = "category.html"; //open with current category id but how ı dont know (:')
+
+    }catch(error){
+        alert("failed to fetch /note/createNote");
+      }
+
+
+}
+   
 
     async function deleteSelectedNotes() {
         try{
