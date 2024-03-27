@@ -184,7 +184,7 @@
                 temp += "<tr>";
                 temp += `<td><input type="checkbox" name="note" value="${data[i].noteId}"></td>`;
                 temp += "<td>" + data[i].title + "</td>";
-                temp += "<td>" + data[i].content + "</td><br>";
+                temp += "<td>" + data[i].content + "</td>";
                 temp += "</tr>";
             }
     
@@ -276,7 +276,8 @@ async function openPrompt(){
     const noteContentInp = await document.getElementById("noteContent").value;
 
     submitBtn.onclick = async function() {
-         await addNewNote(noteTitleInp,noteContentInp);
+        let isTrue = await addNewNote(noteTitleInp,noteContentInp);
+        modal.style.display = "none";
     };
     
         
@@ -304,8 +305,9 @@ async function addNewNote(title,content){
                 }
             
                 const data= await response.json();
+                console.log(data);
+                getUserNotesWithCategories(currentcategoryId);
                 
-                window.location.href = "category.html"; //open with current category id but how ı dont know (:')
 
     }catch(error){
         alert("failed to fetch /note/createNote");
