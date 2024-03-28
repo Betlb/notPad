@@ -28,8 +28,8 @@ public class NoteController {
         return noteService.createNote(initialNote);
 
     }
-    @PostMapping("/editNote")
-    public Note editNote(@RequestParam Long note_id, @RequestParam Note updatedNote){
+    @PutMapping("/editNote")
+    public Note editNote(@RequestParam Long note_id, @RequestBody Note updatedNote){
         return noteService.editNote(note_id,updatedNote);
     }
 

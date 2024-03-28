@@ -183,8 +183,8 @@
             for (i = 0; i < length; i++) {
                 temp += "<tr>";
                 temp += `<td><input type="checkbox" name="note" value="${data[i].noteId}"></td>`;
-                temp += "<td>" + data[i].title + "</td>";
-                temp += "<td>" + data[i].content + "</td>";
+                temp += "<td id='title_${data[i].noteId}'>" + data[i].title + "</td>";
+                temp += "<td id='content_${data[i].noteId}'>" + data[i].content + "</td>";
                 temp += "</tr>";
             }
     
@@ -346,6 +346,93 @@ async function addNewNote(title,content){
         }
     }
 
-    function editNote() {
+    async function editNote(note){
+        try{
+                //degistir yeni notla değişenleri
+                const url = `/note/editNote?note_id=${note.noteId}`;
+                const response = await fetch(url,{
+                    method: "PUT",
+                    headers: {
+                        'Content-type':'application/json'
+                    },
+                    body: JSON.stringify({
+                        categoryId: currentcategoryId,
+                        title: note.title,
+                        content : note.content
+                    }),
+                });
+                if(!response.ok){
+                    throw new Error("Failed to edit note.");
+                }
+            
+                getUserNotesWithCategories(currentcategoryId);
+        }
+        catch(error){
+            alert("failed to fetch editNote.");
+        }
+    }
+
+    async function openPromptEdit(){
+
+        const selectedNotes = Array.from(document.querySelectorAll('input[name=note]:checked')).map(checkbox => checkbox.value);
+        if(selectedNotes.length > 1){
+            alert("You have to choose exactly one note which will be edit!");
+        }
+        else if(selectedNotes.length === 0){
+            alert("You did not choose any note. Please choose.");
+        }
+        else {
+            let noteId = selectedNotes[0];
+                const modal =document.getElementById("notePrompt");
+                const btn = document.getElementById("openPromptEdit");
+                const span = document.getElementsByClassName("close")[0];
+                const submitBtn = document.getElementById("submitNote"); 
+
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                }
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+            
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                    modal.style.display = "none";
+                    }
+                }
+
+                //title and content is filled check.
+                await new Promise((resolve,reject) => {
+                submitBtn.onclick = function(){
+                    const noteTitleInp = document.getElementById("noteTitle").value;
+                    const noteContentInp = document.getElementById("noteContent").value;
+
+                    if(noteTitleInp.trim() === '' || noteContentInp.trim() === ''){
+                        alert("Please fill gaps!");
+                        reject();
+                    }
+                    else{
+                        resolve();
+                    }
+                };
+
+                });
+
+                const noteTitleInp = await document.getElementById("noteTitle").value;
+                const noteContentInp = await document.getElementById("noteContent").value;
+                //const title = await document.getElementById("title_${noteId}").value;
+                //const content = await document.getElementById("content_${noteId}").value;
+
+                const note = {
+                    noteId : noteId,
+                    title : noteTitleInp,
+                    content : noteContentInp
+                }
+                submitBtn.onclick = async function() {
+                    await editNote(note);
+                    modal.style.display = "none";
+                };
+        }
+        
     }
 

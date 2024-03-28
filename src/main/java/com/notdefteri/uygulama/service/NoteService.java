@@ -26,11 +26,11 @@ public class NoteService {
     public Note editNote(Long noteId, Note newNote) {
         Note updatedNotedb = noteRepository.findById(noteId).orElseThrow(() -> new IllegalStateException("The note is not exist."));
         //if(noteId!=newNote.getNoteId()){
-        updatedNotedb.setNoteId(newNote.getNoteId());
         Timestamp currentTimeStamp = new Timestamp(System.currentTimeMillis());
         updatedNotedb.setNoteIdUpdateTime(currentTimeStamp);
         updatedNotedb.setContent(newNote.getContent());
         updatedNotedb.setTitle(newNote.getTitle());
+        updatedNotedb.setCategoryId(newNote.getCategoryId());
 
         return noteRepository.save(updatedNotedb);
     }
