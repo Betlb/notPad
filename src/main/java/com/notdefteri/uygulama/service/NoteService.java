@@ -23,7 +23,7 @@ public class NoteService {
         return noteRepository.save(new Note(initialNote.getNotepadUserId(),initialNote.getCategoryId(),initialNote.getTitle(),initialNote.getContent()));
     }
 
-    public Note editNote(Long noteId, Note newNote) {
+    public List<Note> editNote(Long noteId, Note newNote) {
         Note updatedNotedb = noteRepository.findById(noteId).orElseThrow(() -> new IllegalStateException("The note is not exist."));
         //if(noteId!=newNote.getNoteId()){
         Timestamp currentTimeStamp = new Timestamp(System.currentTimeMillis());
@@ -32,7 +32,9 @@ public class NoteService {
         updatedNotedb.setTitle(newNote.getTitle());
         updatedNotedb.setCategoryId(newNote.getCategoryId());
 
-        return noteRepository.save(updatedNotedb);
+        noteRepository.save(updatedNotedb);
+        return noteRepository.findNotesByNotepadUserIdAndCategoryIdOrderByNoteCreateTime(newNote.getUserId(),newNote.getCategoryId());
+
     }
 
 
@@ -48,7 +50,7 @@ public class NoteService {
 
 
     public List<NoteView> getNotesByCategoryAndUser(Long userId, Long categorId) {
-        List<Note> lstNote = noteRepository.findNotesByNotepadUserIdAndCategoryId(userId,categorId);
+        List<Note> lstNote = noteRepository.findNotesByNotepadUserIdAndCategoryIdOrderByNoteCreateTime(userId,categorId);
 
         if(lstNote.isEmpty())
             return new ArrayList<>();

@@ -29,7 +29,7 @@ public class NoteController {
 
     }
     @PutMapping("/editNote")
-    public Note editNote(@RequestParam Long note_id, @RequestBody Note updatedNote){
+    public List<Note> editNote(@RequestParam Long note_id, @RequestBody Note updatedNote){
         return noteService.editNote(note_id,updatedNote);
     }
 

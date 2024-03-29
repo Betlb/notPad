@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface NoteRepository extends JpaRepository<Note,Long> {
 
-    List<Note> findNotesByNotepadUserIdAndCategoryId(Long userId,Long categoryId);
-
+    List<Note> findNotesByNotepadUserIdAndCategoryIdOrderByNoteCreateTime(Long userId,Long categoryId);
 
 }

@@ -38,7 +38,7 @@ public class CategoryService {
 
     public void deleteCategory(Long userId,Long categoryId) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new NoSuchElementException("Category is not found!!"));;
-        List<Note> notes = noteRepository.findNotesByNotepadUserIdAndCategoryId(userId,categoryId);
+        List<Note> notes = noteRepository.findNotesByNotepadUserIdAndCategoryIdOrderByNoteCreateTime(userId,categoryId);
         for(int i=0;i<notes.size();i++){
             noteRepository.deleteById(notes.get(i).getNoteId());
         }

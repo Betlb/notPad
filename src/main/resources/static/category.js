@@ -116,7 +116,6 @@
     function activated2(currentcategoryElement,categId){
         currentcategoryElement.style.backgroundColor = "#49aa04";
         currentcategoryId = categId//.value idsini getirdi categlerin!!!
-        console.log(currentcategoryId);
         if(previousCategoryElement!==null){
             previousCategoryElement.style.backgroundColor = "#333";
         }
@@ -183,8 +182,8 @@
             for (i = 0; i < length; i++) {
                 temp += "<tr>";
                 temp += `<td><input type="checkbox" name="note" value="${data[i].noteId}"></td>`;
-                temp += "<td id='title_${data[i].noteId}'>" + data[i].title + "</td>";
-                temp += "<td id='content_${data[i].noteId}'>" + data[i].content + "</td>";
+                temp += `<td id='title_${data[i].noteId}'>${data[i].title}</td>`;
+                temp += `<td id='content_${data[i].noteId}'>${data[i].content}</td>`;
                 temp += "</tr>";
             }
     
@@ -238,13 +237,12 @@ async function openPrompt(){
     }
 
     const modal =document.getElementById("notePrompt");
-    const btn = document.getElementById("openPrompt");
     const span = document.getElementsByClassName("close")[0];
     const submitBtn = document.getElementById("submitNote"); 
 
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
+   
+    modal.style.display = "block";
+    
     span.onclick = function() {
         modal.style.display = "none";
     }
@@ -256,31 +254,21 @@ async function openPrompt(){
     }
 
     //title and content is filled check.
-    await new Promise((resolve,reject) => {
-        submitBtn.onclick = function(){
-            const noteTitleInp = document.getElementById("noteTitle").value;
-            const noteContentInp = document.getElementById("noteContent").value;
+
+        submitBtn.onclick = async function(){
+            const noteTitleInp = await document.getElementById("noteTitle").value;
+            const noteContentInp = await document.getElementById("noteContent").value;
 
             if(noteTitleInp.trim() === '' || noteContentInp.trim() === ''){
                 alert("Please fill in both title and content!");
-                reject();
             }
             else{
-                resolve();
+                await addNewNote(noteTitleInp,noteContentInp);
+                modal.style.display = "none";
             }
         };
 
-    });
-
-    const noteTitleInp = await document.getElementById("noteTitle").value;
-    const noteContentInp = await document.getElementById("noteContent").value;
-
-    submitBtn.onclick = async function() {
-        let isTrue = await addNewNote(noteTitleInp,noteContentInp);
-        modal.style.display = "none";
-    };
     
-        
 }
 
 async function addNewNote(title,content){
@@ -384,13 +372,14 @@ async function addNewNote(title,content){
         else {
             let noteId = selectedNotes[0];
                 const modal =document.getElementById("notePrompt");
-                const btn = document.getElementById("openPromptEdit");
                 const span = document.getElementsByClassName("close")[0];
                 const submitBtn = document.getElementById("submitNote"); 
 
-                btn.onclick = function() {
-                    modal.style.display = "block";
-                }
+                document.getElementById("noteTitle").value = document.getElementById(`title_${noteId}`).textContent;
+                document.getElementById("noteContent").value = document.getElementById(`content_${noteId}`).textContent;
+               
+                modal.style.display = "block";
+                
                 span.onclick = function() {
                     modal.style.display = "none";
                 }
@@ -402,36 +391,26 @@ async function addNewNote(title,content){
                 }
 
                 //title and content is filled check.
-                await new Promise((resolve,reject) => {
-                submitBtn.onclick = function(){
+           
+                submitBtn.onclick = async function(){
                     const noteTitleInp = document.getElementById("noteTitle").value;
                     const noteContentInp = document.getElementById("noteContent").value;
 
                     if(noteTitleInp.trim() === '' || noteContentInp.trim() === ''){
                         alert("Please fill gaps!");
-                        reject();
+                        
                     }
                     else{
-                        resolve();
+                        const note = {
+                            noteId : noteId,
+                            title : noteTitleInp,
+                            content : noteContentInp
+                        }
+                        await editNote(note);
+                        modal.style.display = "none";   
                     }
                 };
-
-                });
-
-                const noteTitleInp = await document.getElementById("noteTitle").value;
-                const noteContentInp = await document.getElementById("noteContent").value;
-                //const title = await document.getElementById("title_${noteId}").value;
-                //const content = await document.getElementById("content_${noteId}").value;
-
-                const note = {
-                    noteId : noteId,
-                    title : noteTitleInp,
-                    content : noteContentInp
-                }
-                submitBtn.onclick = async function() {
-                    await editNote(note);
-                    modal.style.display = "none";
-                };
+              
         }
         
     }
