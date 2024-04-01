@@ -47,7 +47,7 @@
         
         const categoryName = prompt('Enter the category name: ');
         if(categoryName!==null&&categoryName.trim()!==''){
-
+        try{
             const url = `/category/addCategory?categoryName=${categoryName}&userId=${currentUser.userId}`;
             
 
@@ -57,24 +57,30 @@
                     'Content-type' : 'application/json'
                 },
             })
+
             if(!response.ok){
-                throw new Error("Failed to fetch addNewCategory.")
-
+                if (response.status === 400) {//bu cok doru gelmedi.
+                    alert(`${categoryName} is already exist.`);
+                } else {
+                    console.error('Error:', response.status);
+                }
             }
-            const data = await response.json();
-            categoryList(data);
+            else{
+                const data = await response.json();
+                categoryList(data);
+            }
         }
-       /* else{
+        catch(error){
+            console.error(error);
+             }
+            
+        }
+        else{
             alert('You did not enter category name!');
-         }
-        */
-       /* getAllCategories().then(function (){
-            document.getElementById("categoryMenu").innerHTML += `<li id="${data.categoryId}"> <a onclick="getUserNotesWithCategories(${data.categoryId}), activated2(this)">${data.category_name}</a></li>`;
-        });
-
-        location.replace('/category.html');*/
-
+        }
+       
     }
+
 
     async function deleteCategory(){
 
