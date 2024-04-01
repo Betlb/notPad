@@ -36,6 +36,32 @@ body {
 
 .sidebar {
     grid-area: sd;
+    display: grid;
+    grid-template-columns: min-content;
+
+}
+
+.action-cls, #exitBtn {
+  padding: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.action-cls {
+  text-align: right;
+  justify-content: space-between;
+}
+
+#exitBtn {
+  justify-content: center;
+  justify-self: center;
+  margin-top: auto;
+  font-size: 23px;
+}
+
+.action-cls button {
+  font-size: 23px;
 }
 
 
@@ -122,19 +148,6 @@ body {
 
 
 
-.action-cls{
-    padding: 20px;
-    text-align: right;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-
-}
-
-.action-cls button{
-  font-size: 23px;
-}
 
 .dropbtnCategory {
   background-color: #0c0505;

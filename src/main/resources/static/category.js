@@ -234,6 +234,7 @@
 async function openPrompt(){
     if(currentcategoryId==null){
         alert("Please firstly choose category!");
+        return;
     }
 
     const modal =document.getElementById("notePrompt");
@@ -413,5 +414,13 @@ async function addNewNote(title,content){
               
         }
         
+    }
+
+    function exit(){
+        if(confirm("Are you sure you want to exit?")){
+            localStorage.clear();
+            window.location.href = "index.html";
+        }
+
     }
 
