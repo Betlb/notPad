@@ -83,7 +83,9 @@
 
 
     async function deleteCategory(){
-
+        const result = window.confirm("Are you sure to delete current category?");
+        
+    if(result===true){
         try{
             const url = `/category/deleteCategory?userId=${currentUser.userId}&categoryId=${currentcategoryId}`;
             const response = await fetch(url,{
@@ -109,6 +111,8 @@
         }
 
     }
+        
+    }
 
     //this was opened with new window.
     /*
@@ -122,7 +126,7 @@
     function activated2(currentcategoryElement,categId){
         currentcategoryElement.style.backgroundColor = "#49aa04";
         currentcategoryId = categId//.value idsini getirdi categlerin!!!
-        if(previousCategoryElement!==null){
+        if(previousCategoryElement!==null && previousCategoryElement!==currentcategoryElement){
             previousCategoryElement.style.backgroundColor = "#333";
         }
         previousCategoryElement = currentcategoryElement;
@@ -271,6 +275,8 @@ async function openPrompt(){
             }
             else{
                 await addNewNote(noteTitleInp,noteContentInp);
+                document.getElementById("noteTitle").value = "";
+                document.getElementById("noteContent").value = "";
                 modal.style.display = "none";
             }
         };

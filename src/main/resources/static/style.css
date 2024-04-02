@@ -22,7 +22,19 @@
     flex-direction: column;
 }
 
+.hidden{
+    display: none;
+}
 
+#passwordInfoTooltip{
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+}
 
   /* *{
     border: 1px solid red;

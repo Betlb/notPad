@@ -41,13 +41,18 @@ async function register(){
  async function validateForm(){
 
     const password1Inp = document.getElementById("password1").value;
-    const passwordError1Inp = document.getElementById("passwordError1").value;
     const password2Inp = document.getElementById("password2").value;
-    const passwordError2Inp = document.getElementById("passwordError2").value;
 
     
     
     let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.!]).{10,}$/;
+
+    if(password1Inp != password2Inp){
+        alert("Passwords must be same!!");
+        //passwordError2Inp.textContent = "Password must be same!!";
+        //passwordError2Inp.style.display = "block";
+        return false;
+    }
 
     if(!passwordRegex.test(password1Inp)){
         alert('Password should be at least 10 characters and include at least one lowercase letter, one uppercase letter, one digit, and one of . or !');
@@ -56,12 +61,7 @@ async function register(){
         return false;
     }
 
-    if(password1Inp != password2Inp){
-        alert("Passwords must be same!!");
-        //passwordError2Inp.textContent = "Password must be same!!";
-        //passwordError2Inp.style.display = "block";
-        return false;
-    }
+    
         
     //passwordError1Inp.textContent = "";
     //passwordError1Inp.style.display = "none";

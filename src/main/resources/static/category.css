@@ -63,23 +63,26 @@ body {
 .action-cls button {
   font-size: 23px;
 }
+#userNameUserLastName{
+  color: white;
+}
 
 
 
   
   .main-grid {
-    border: 2px solid #f707cf;
+    /*border: 2px solid #f707cf;*/
     border-radius: 5px;
     background-color: #f8e6ff;
     width: 200px;
   }
   
   .main-grid > div {
-    border: 2px solid #944dff;
+    /*border: 2px solid #944dff;*/
     border-radius: 5px;
-    background-color: #c4a8ff;
+    background-color: #c9b7f0;
     padding: 1em;
-    color: #b70fd9;
+    color: #000000;
   }
 
   .categTitle{
@@ -141,6 +144,7 @@ body {
   font-weight: 900;
   width: 623px;
   font-size: 16px;
+  overflow: auto;
 }
 .notes-cls table{
   font-size: 18px;
